@@ -22,6 +22,7 @@ public final class JamesAutoTest extends LinearOpMode {
                         //Travels side to side after turning to face the specified point (positive is left).
                         //.lineToX(-24)
                         .strafeTo(new Vector2d(24, 0))
+                        .addTrajectorySequence()
                         .strafeTo(new Vector2d(24, -24))
                         //Turns a specified number of radians, or use "Math.toRadians(degrees)" (positive is counter-clockwise).
                         .turn(Math.toRadians(360))
