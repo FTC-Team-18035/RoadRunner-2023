@@ -1,5 +1,6 @@
     package org.firstinspires.ftc.teamcode;
 
+    import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
     import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
     import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
     import com.qualcomm.robotcore.hardware.DcMotor;
@@ -50,6 +51,8 @@
         private double x;
         private double rx;
 
+        RevBlinkinLedDriver lights;
+
         @Override
         public void runOpMode() throws InterruptedException {
             // Declare our motors
@@ -68,6 +71,9 @@
             DcMotor ArmRotationMotor = hardwareMap.dcMotor.get("ArmRotationMotor");
 
             DcMotor IntakeMotor = hardwareMap.dcMotor.get("IntakeMotor");
+
+            lights = hardwareMap.get(RevBlinkinLedDriver.class, "lights");
+            lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
 
             // Reverse the right side motors
 
@@ -114,22 +120,24 @@
 
                 // check for driving input
                 //Forward Driving
-                if(gamepad1.right_trigger >= 0.95 && ReverseDriveActive && ReverseDriveTime.seconds() >= 2.0) {
+                if(gamepad1.right_trigger >= 0.95 && ReverseDriveActive && ReverseDriveTime.seconds() >= 1.0) {
                     y = gamepad1.left_stick_y; // Remember, this is reversed!
                     x = -gamepad1.right_stick_x * 1.1; // Counteract imperfect strafing
                     rx = -gamepad1.left_stick_x;
                     ReverseDriveTime.reset();
                     ReverseDriveActive = false;
+                    lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
                 }
 
 
                 //Reversed driving
-                else if (gamepad1.right_trigger >= 0.95 && !ReverseDriveActive && ReverseDriveTime.seconds() >= 2.0) {
+                else if (gamepad1.right_trigger >= 0.95 && !ReverseDriveActive && ReverseDriveTime.seconds() >= 1.0) {
                     y = -gamepad1.left_stick_y; // Remember, this is reversed!
                      x = -gamepad1.right_stick_x * 1.1; // Counteract imperfect strafing
                      rx = gamepad1.left_stick_x;
                      ReverseDriveTime.reset();
                      ReverseDriveActive = true;
+                     lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
                 }
 
 
