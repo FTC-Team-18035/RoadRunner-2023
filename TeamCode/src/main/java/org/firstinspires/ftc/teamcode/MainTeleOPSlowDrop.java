@@ -226,6 +226,11 @@
                     LiftTarget = 10;
                     LiftTime.reset();
                 }
+                else if (gamepad2.y && LiftTime.seconds() > 1.0){
+                    ArmActive = true;
+                    LiftTarget = 3500;
+                    LiftTime.reset();
+                }
                /* else if (gamepad2.x && LiftTime.seconds() > 1.0){
                     LiftTarget = 200;
                     LiftTime.reset();
